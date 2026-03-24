@@ -1,0 +1,5 @@
+target/
+!target/ppm-backend-0.0.1-SNAPSHOT.jar
+.idea/
+*.iml
+*.log

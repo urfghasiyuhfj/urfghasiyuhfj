@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  # MySQL 数据库
+  mysql:
+    image: mysql:8.0
+    container_name: ppm-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: fuqiuyang030828
+      MYSQL_DATABASE: ppm_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: fuqiuyang030828
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./ppm-backend/sql/init_database.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ppm-network
+
+#  # RabbitMQ（可选）
+#  rabbitmq:
+#    image: rabbitmq:3-management-alpine
+#    container_name: ppm-rabbitmq
+#    restart: unless-stopped
+#    environment:
+#      RABBITMQ_DEFAULT_USER: admin
+#      RABBITMQ_DEFAULT_PASS: fuqiuyang030828
+#    volumes:
+#      - rabbitmq_data:/var/lib/rabbitmq
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#    networks:
+#      - ppm-network
+
+  # 后端服务
+  ppm-backend:
+    build:
+      context: ./ppm-backend
+      dockerfile: Dockerfile
+    container_name: ppm-backend
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ppm_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: fuqiuyang030828
+      PPM_IMPORT_FOLDER: /data/import
+    volumes:
+      - ppm_data:/data
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - ppm-network
+
+  # 前端服务
+  ppm-frontend:
+    build:
+      context: ./ppm-frontend
+      dockerfile: Dockerfile
+    container_name: ppm-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - ppm-backend
+    networks:
+      - ppm-network
+
+  # MQ服务（可选）
+#  inventory-mq:
+#    build:
+#      context: ./inventory-mq
+#      dockerfile: Dockerfile
+#    container_name: inventory-mq
+#    restart: unless-stopped
+#    environment:
+#      SPRING_RABBITMQ_HOST: rabbitmq
+#      SPRING_RABBITMQ_USERNAME: ${RABBITMQ_USER:-admin}
+#      SPRING_RABBITMQ_PASSWORD: ${RABBITMQ_PASS:-admin123}
+#    ports:
+#      - "8081:8081"
+#    depends_on:
+#      - rabbitmq
+#    networks:
+#      - ppm-network
+#    profiles:
+#      - mq
+
+volumes:
+  mysql_data:
+  rabbitmq_data:
+  ppm_data:
+
+networks:
+  ppm-network:
+    driver: bridge

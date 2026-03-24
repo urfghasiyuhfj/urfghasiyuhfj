@@ -1,0 +1,1 @@
+import{r}from"./request-CAiC0LI0.js";function p(t){return r.get("/ppm/summary",{params:t})}function e(t){return r.get("/ppm/list",{params:{ppmMonth:t}})}function m(t=12){return r.get("/ppm/trend",{params:{limitMonths:t}})}function n(t){return r.post("/ppm/calculate",null,{params:{ppmMonth:t}})}export{e as a,m as b,n as c,p as g};

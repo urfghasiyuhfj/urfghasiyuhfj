@@ -1,0 +1,29 @@
+# 本地数据库配置（勿提交）
+src/main/resources/application-local.yml
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+pom.xml.tag
+*.war
+*.ear
+*.zip
+*.iml
+
+# IDE
+.idea/
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db

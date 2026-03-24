@@ -1,0 +1,1 @@
+import{r as e}from"./request-CAiC0LI0.js";function r(u){return e.get("/query/suspicious-material",{params:u})}function s(u){return e.get("/query/supply-volume",{params:u})}function i(u){return e.get("/query/suspicious-material/stats",{params:u})}export{s as a,i as g,r as q};

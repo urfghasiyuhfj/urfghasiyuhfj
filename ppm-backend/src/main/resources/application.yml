@@ -1,0 +1,52 @@
+# PPM 数据分析系统 - 主配置
+spring:
+  application:
+    name: ppm-backend
+  datasource:
+    # MySQL 连接 URL（可通过环境变量 SPRING_DATASOURCE_URL 覆盖）
+    # 格式: jdbc:mysql://<host>:<port>/<数据库名>?<参数>
+    # characterEncoding=UTF-8：Java UTF-8 与 utf8mb4 库兼容，支持 emoji
+    url: jdbc:mysql://localhost:3306/ppm_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true
+    username: root
+    password: fuqiuyang030828
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+      idle-timeout: 300000
+      connection-timeout: 20000
+      max-lifetime: 1200000
+      pool-name: ppm-hikari
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+
+ppm:
+  import-folder: D:\codespace\ppm\ppm
+
+logging:
+  level:
+    com.ppm: DEBUG
+    org.hibernate.SQL: DEBUG

@@ -1,0 +1,17 @@
+# 开发环境配置（激活: --spring.profiles.active=dev）
+spring:
+  datasource:
+    # characterEncoding=UTF-8 与 utf8mb4 库兼容
+    url: jdbc:mysql://localhost:3306/ppm_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true&nullCatalogMeansCurrent=true
+    username: root
+    password: fuqiuyang030828
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    com.ppm: DEBUG
+    org.hibernate.SQL: DEBUG

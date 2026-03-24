@@ -1,0 +1,26 @@
+# 供应商库存数据接口 - 消息队列示例（独立运行，不依赖 PPM 主系统）
+spring:
+  application:
+    name: inventory-mq
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+server:
+  port: 8081
+
+# 自定义：队列与交换机名称
+inventory:
+  mq:
+    exchange: inventory.exchange
+    queue: inventory.supplier.queue
+    routing-key: inventory.supplier
+
+logging:
+  level:
+    com.ppm.inventory: DEBUG
+    org.springframework.amqp: INFO
