@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # MySQL 数据库
   mysql:
@@ -9,7 +7,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: fuqiuyang030828
       MYSQL_DATABASE: ppm_db
-      MYSQL_USER: root
+      MYSQL_USER: user
       MYSQL_PASSWORD: fuqiuyang030828
     volumes:
       - mysql_data:/var/lib/mysql
@@ -17,10 +15,11 @@ services:
     ports:
       - "3306:3306"
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pfuqiuyang030828"]
       interval: 10s
-      timeout: 5s
-      retries: 5
+      timeout: 10s
+      retries: 10
+      start_period: 60s
     networks:
       - ppm-network
 
