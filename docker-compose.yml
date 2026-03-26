@@ -10,7 +10,7 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: fuqiuyang030828
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ./data/mysql:/var/lib/mysql
       - ./ppm-backend/sql/init_database.sql:/docker-entrypoint-initdb.d/init.sql:ro
     ports:
       - "3306:3306"
@@ -53,7 +53,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: fuqiuyang030828
       PPM_IMPORT_FOLDER: /data/import
     volumes:
-      - ppm_data:/data
+      - ./data/import:/data/import
     ports:
       - "8080:8080"
     depends_on:
@@ -96,10 +96,10 @@ services:
 #    profiles:
 #      - mq
 
-volumes:
-  mysql_data:
-  rabbitmq_data:
-  ppm_data:
+# volumes:
+#   mysql_data:
+#   rabbitmq_data:
+#   ppm_data:
 
 networks:
   ppm-network:
