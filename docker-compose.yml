@@ -95,11 +95,10 @@ services:
 #      - ppm-network
 #    profiles:
 #      - mq
-
-# volumes:
-#   mysql_data:
-#   rabbitmq_data:
-#   ppm_data:
+#  volumes:
+#    mysql_data:
+#    rabbitmq_data:
+#    ppm_data:
 
 networks:
   ppm-network:
