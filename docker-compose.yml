@@ -3,7 +3,7 @@ services:
   mysql:
     image: mysql:8.0
     container_name: ppm-mysql
-    restart: unless-stopped
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: fuqiuyang030828
       MYSQL_DATABASE: ppm_db
@@ -45,11 +45,11 @@ services:
       context: ./ppm-backend
       dockerfile: Dockerfile
     container_name: ppm-backend
-    restart: unless-stopped
+    restart: always
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ppm_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true
-      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: fuqiuyang030828
       PPM_IMPORT_FOLDER: /data/import
     volumes:
@@ -68,7 +68,7 @@ services:
       context: ./ppm-frontend
       dockerfile: Dockerfile
     container_name: ppm-frontend
-    restart: unless-stopped
+    restart: always
     ports:
       - "80:80"
     depends_on:

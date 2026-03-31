@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Repository 集成测试
  * 测试数据库操作的正确性
  */
+@Disabled("需要Docker环境运行Testcontainers")
 class RepositoryIntegrationTest extends BaseIntegrationTest {
 
     @Autowired

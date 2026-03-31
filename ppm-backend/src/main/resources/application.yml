@@ -6,7 +6,7 @@ spring:
     # MySQL 连接 URL（可通过环境变量 SPRING_DATASOURCE_URL 覆盖）
     # 格式: jdbc:mysql://<host>:<port>/<数据库名>?<参数>
     # characterEncoding=UTF-8：Java UTF-8 与 utf8mb4 库兼容，支持 emoji
-    url: jdbc:mysql://192.168.40.133:3306/ppm_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/ppm_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true
     username: root
     password: fuqiuyang030828
     driver-class-name: com.mysql.cj.jdbc.Driver
